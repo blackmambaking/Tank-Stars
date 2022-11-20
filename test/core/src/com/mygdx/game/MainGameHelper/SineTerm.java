@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.MainGameHelper;
 
 public class SineTerm {
     private float amplitude;

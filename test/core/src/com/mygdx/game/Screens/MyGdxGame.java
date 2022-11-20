@@ -1,23 +1,18 @@
-package com.mygdx.game;
+package com.mygdx.game.Screens;
+
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.*;
+import com.mygdx.game.MainGameHelper.*;
 
 import java.util.Random;
-import java.util.Timer;
 
 public class MyGdxGame extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Random rn = new Random();
-
 
 	private Texture img;
 	private Texture img2;
@@ -107,10 +102,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		this.score = score;
 	}
 
-
-
-
-
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -136,7 +127,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	}
 
-
 	@Override
 	public void render () {
 
@@ -152,7 +142,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		//batch.draw(img, 0, 0);
 		batch.end();
 	}
-	
+
 	@Override
 	public void dispose () {
 		batch.dispose();

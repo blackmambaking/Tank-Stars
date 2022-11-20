@@ -1,8 +1,15 @@
-package com.mygdx.game;
+package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Screen;
+import com.mygdx.game.MainClass;
 
-public class MainMenu implements Screen {
+public class LoadGameMenu implements Screen {
+    private final MainClass mainClass;
+
+    public LoadGameMenu(MainClass mainClass) {
+        this.mainClass = mainClass;
+    }
+
     @Override
     public void show() {
 

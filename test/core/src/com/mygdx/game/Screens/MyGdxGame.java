@@ -52,55 +52,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		this.img = img;
 	}
 
-	public Texture getImg2() {
-		return img2;
-	}
 
-	public void setImg2(Texture img2) {
-		this.img2 = img2;
-	}
-
-	public Texture getImg3() {
-		return img3;
-	}
-
-	public void setImg3(Texture img3) {
-		this.img3 = img3;
-	}
-
-	public Texture getImg4() {
-		return img4;
-	}
-
-	public void setImg4(Texture img4) {
-		this.img4 = img4;
-	}
-
-	public Player1 getPlayer1() {
-		return player1;
-	}
-
-	public void setPlayer1(Player1 player1) {
-		this.player1 = player1;
-	}
-
-	public Background getBackground() {
-		return background;
-	}
-
-	public void setBackground(Background background) {
-		this.background = background;
-	}
-
-
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
 
 	@Override
 	public void create () {

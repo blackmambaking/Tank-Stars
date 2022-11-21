@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Background;
 import com.mygdx.game.Button;
 import com.mygdx.game.MainClass;
+import jdk.tools.jmod.Main;
 
 public class SelectTank implements Screen {
     private final MainClass mainClass;
@@ -107,6 +109,12 @@ public class SelectTank implements Screen {
 
         //next2.draw(batch);
         batch.end();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.S)){
+            mainClass.setScreen(new MainGameScreen(mainClass));
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
+            mainClass.setScreen(new MainMenu(mainClass));
+        }
 
     }
 

@@ -11,6 +11,7 @@ public class MainClass extends Game implements ApplicationListener {
     private MainMenu mainMenu;
     private LoadGameMenu loadGameMenu;
     private MyGdxGame myGdxGame;
+    private MainGameScreen mainGameScreen;
     private SelectTank selectTank;
     void setPauseMenu()
     {
@@ -28,11 +29,15 @@ public class MainClass extends Game implements ApplicationListener {
     {
         loadGameMenu = new LoadGameMenu(this);
         setScreen(loadGameMenu);
+    }void setMainGameScreen()
+    {
+        mainGameScreen = new MainGameScreen(this);
+        setScreen(mainGameScreen);
     }
     @Override
     public void create() {
-        setSelectTankMenu();
 
+        setMainMenu();
     }
     @Override
     public void dispose() {

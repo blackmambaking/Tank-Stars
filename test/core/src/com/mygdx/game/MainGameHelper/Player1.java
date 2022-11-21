@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player1 {
+public class Player1 extends Player{
     private Vector2 position;
     private Vector2 positionLaser;
     private Sprite sprite;
@@ -65,14 +65,18 @@ public class Player1 {
 
     private float LaserSpeed = 300;
     public Player1(Texture img, Texture laserImg){
+
         sprite = new Sprite(img);
         laserSprite = new Sprite(laserImg);
         position = new Vector2(Gdx.graphics.getWidth()/2 -200,-100);
         positionLaser = new Vector2(Gdx.graphics.getWidth()/2,1000);
         sprite.setScale((float) 0.2);
         laserSprite.setScale((float) 0.2);
+        this.setName("Player1");
 
     }
+
+    @Override
     public void update(float deltaTime){
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             position.x -= deltaTime*speed;
@@ -103,6 +107,7 @@ public class Player1 {
         positionLaser.y += deltaTime*LaserSpeed;
 
     }
+    @Override
     public void draw(SpriteBatch batch){
         update(Gdx.graphics.getDeltaTime());
         sprite.setPosition(position.x, position.y);

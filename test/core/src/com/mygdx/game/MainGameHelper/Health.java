@@ -6,22 +6,22 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class Health {
+public class Health implements healthInt{
     private Vector2 position;
     private Sprite sprite;
-
+    @Override
     public Vector2 getPosition() {
         return position;
     }
-
+    @Override
     public void setPosition(Vector2 position) {
         this.position = position;
     }
-
+    @Override
     public Sprite getSprite() {
         return sprite;
     }
-
+    @Override
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
@@ -32,6 +32,7 @@ public class Health {
         sprite.setSize(500, (float) 100);
 
     }
+    @Override
     public void draw(SpriteBatch batch){
         sprite.setPosition(position.x, position.y);
         sprite.draw(batch);

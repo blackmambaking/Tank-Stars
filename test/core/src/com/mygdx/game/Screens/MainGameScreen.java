@@ -109,32 +109,34 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 1);
+        try{
+            ScreenUtils.clear(0, 0, 0, 1);
+            batch.begin();
+            background.draw(batch);
+            player1.draw(batch);
+            player2.draw(batch);
+            health.draw(batch);
+            health2.draw(batch);
+            pause.draw(batch);
+            batch.end();
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.circle(00 , -800, 1000);
+            shapeRenderer.end();
+            shapeRenderer2.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer2.setColor(Color.BLACK);
+            shapeRenderer2.circle(800 , -700, 1000);
+            shapeRenderer2.end();
+            if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+                mainClass.setScreen(new PauseMenu(mainClass));
+            }
 
-        batch.begin();
-        background.draw(batch);
-        player1.draw(batch);
-        player2.draw(batch);
-        health.draw(batch);
-        health2.draw(batch);
-        pause.draw(batch);
-        batch.end();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLACK);
-        shapeRenderer.circle(00 , -800, 1000);
-        shapeRenderer.end();
-        shapeRenderer2.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer2.setColor(Color.BLACK);
-        shapeRenderer2.circle(800 , -700, 1000);
-        shapeRenderer2.end();
-        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-            mainClass.setScreen(new PauseMenu(mainClass));
+        }catch (Exception e){
+            System.out.println("Error");
+
         }
 
-
         //batch.draw(img, 0, 0);
-
-
     }
 
     @Override

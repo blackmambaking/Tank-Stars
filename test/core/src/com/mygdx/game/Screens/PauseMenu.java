@@ -6,10 +6,21 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Background;
 import com.mygdx.game.Button;
 import com.mygdx.game.MainClass;
+
+import static java.lang.System.exit;
 
 public class PauseMenu implements Screen {
 
@@ -36,6 +47,9 @@ public class PauseMenu implements Screen {
     private BitmapFont font1;
     private BitmapFont font2;
 
+    Drawable drawable;
+    ImageButton playButton;
+
 
 
     public PauseMenu(MainClass mainClass) {
@@ -44,6 +58,7 @@ public class PauseMenu implements Screen {
 
     @Override
     public void show() {
+
         batch = new SpriteBatch();
         img = new Texture("logo4.jpg");
         img1 = new Texture("ld.png");
@@ -62,6 +77,11 @@ public class PauseMenu implements Screen {
         save = new Button(img5);
         resume = new Button(img7);
         quit = new Button(img6);
+        drawable = new TextureRegionDrawable(img5);
+        playButton =  new ImageButton(drawable);
+        playButton.getImage().setScale(0.2F);
+
+
         ld1.getSprite().setScale(1F, 0.4F);
         ld2.getSprite().setScale(1F, 0.4F);
         ld3.getSprite().setScale(1F, 0.4F);
@@ -85,9 +105,19 @@ public class PauseMenu implements Screen {
         font.getData().setScale(1);
         font1.getData().setScale(1);
         font2.getData().setScale(1);
+        Vector2 position6 = new Vector2(-80,60);
+        Vector2 position7 = new Vector2(-60,250);
+        Vector2 position8 = new Vector2(60,0);
         quit.getSprite().setScale(0.2F);
         save.getSprite().setScale(0.2F);
         resume.getSprite().setScale(0.5F);
+        quit.setPosition(position6);
+        save.setPosition(position7);
+        resume.setPosition(position8);
+//        Stage stage = new Stage();
+//        Gdx.input.setInputProcessor(stage);
+//        stage.addActor(playButton);
+
 
     }
 
@@ -103,9 +133,13 @@ public class PauseMenu implements Screen {
         quit.draw(batch);
         resume.draw(batch);
         save.draw(batch);
-        font.draw(batch, "RESUME", 200, 550);
-        font1.draw(batch, "SAVE", 200, 350);
-        font2.draw(batch, "EXIT", 200, 150);
+        font.draw(batch, "SAVE", 250, 520);
+        font1.draw(batch, "EXIT", 250, 320);
+        font2.draw(batch, "RESUME", 250, 120);
+        font.getData().setScale(2);
+        font1.getData().setScale(2);
+        font2.getData().setScale(2);
+        //playButton.draw(batch, 1);
         batch.end();
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
@@ -114,6 +148,9 @@ public class PauseMenu implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
             mainClass.setScreen(new MainMenu(mainClass));
         }
+
+
+
 
     }
 

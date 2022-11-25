@@ -67,6 +67,16 @@ public class MainGameScreen implements Screen {
         this.img = img;
     }
 
+    public void getPlayerInfo(Player player){
+        System.out.println(player.getName());
+        System.out.println(player.getHealth());
+    }
+    public void getPlayerHealth(healthInt health){
+
+        health.getPlayerName();
+    }
+
+
     @Override
     public void show() {
         batch = new SpriteBatch();
@@ -110,6 +120,19 @@ public class MainGameScreen implements Screen {
     @Override
     public void render(float delta) {
         try{
+            if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
+                getPlayerInfo(player1);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
+                getPlayerInfo(player2);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.C)){
+                getPlayerHealth(health);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.V)){
+                getPlayerHealth(health2);
+            }
+
             ScreenUtils.clear(0, 0, 0, 1);
             batch.begin();
             background.draw(batch);

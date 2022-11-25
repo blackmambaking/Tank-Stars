@@ -6,13 +6,22 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player {
+abstract public class Player {
     private Vector2 position;
     private Vector2 positionLaser;
     private Sprite sprite;
     private Sprite laserSprite;
     private float speed = 300;
     private String name;
+
+    private int health;
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
     public String getName() {
         return name;
@@ -21,7 +30,7 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-
+    //using object class to change the object name to string method
     @Override
     public String toString() {
         return this.name;
@@ -47,7 +56,7 @@ public class Player {
         return sprite;
     }
 
-    public void setSprite(Sprite sprite) {
+    private void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
 
@@ -63,7 +72,7 @@ public class Player {
         return speed;
     }
 
-    public void setSpeed(float speed) {
+    private void setSpeed(float speed) {
         this.speed = speed;
     }
 
@@ -80,7 +89,7 @@ public class Player {
 
 
     }
-    public void update(float deltaTime){};
+    abstract public void update(float deltaTime);
     public void draw(SpriteBatch batch){};
 
 }

@@ -60,7 +60,7 @@ public class PauseMenu implements Screen {
     public void show() {
 
         batch = new SpriteBatch();
-        img = new Texture("logo4.jpg");
+        img = new Texture("bgm4.png");
         img1 = new Texture("ld.png");
         img2= new Texture("ld.png");
         img3 = new Texture("ld.png");

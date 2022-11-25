@@ -14,6 +14,7 @@ public class Player1 extends Player{
     private Sprite sprite;
     private Sprite laserSprite;
     private float speed = 300;
+    private int health;
 
     public Vector2 getPosition() {
         return position;
@@ -59,6 +60,14 @@ public class Player1 extends Player{
         return LaserSpeed;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public void setLaserSpeed(float laserSpeed) {
         LaserSpeed = laserSpeed;
     }
@@ -73,6 +82,7 @@ public class Player1 extends Player{
         sprite.setScale((float) 0.2);
         laserSprite.setScale((float) 0.2);
         this.setName("Player1");
+        this.health = 100;
 
     }
 

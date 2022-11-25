@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Health2 implements healthInt{
     private Vector2 position;
     private Sprite sprite;
+    private String playerName = "Player2_health";
 
     @Override
     public Vector2 getPosition() {
@@ -24,6 +25,9 @@ public class Health2 implements healthInt{
     @Override
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
+    }
+    public void getPlayerName(){
+        System.out.println(playerName);
     }
 
 

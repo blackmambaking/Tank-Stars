@@ -3,18 +3,14 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Background;
 import com.mygdx.game.Button;
 import com.mygdx.game.MainClass;
-import jdk.tools.jmod.Main;
 
-public class SelectTank implements Screen {
+public class SelectTank2 implements Screen {
     private final MainClass mainClass;
     private SpriteBatch batch;
     private Texture img;
@@ -35,31 +31,26 @@ public class SelectTank implements Screen {
     private Button tank1;
     private Button tank2;
     private Button tank3;
-    private ShapeRenderer shapeRenderer;
-    private BitmapFont font;
-    private BitmapFont font1;
-    private BitmapFont font2;
 
 
-    public SelectTank(MainClass mainClass) {
+    public SelectTank2(MainClass mainClass) {
         this.mainClass = mainClass;
     }
 
     @Override
     public void show() {
-        shapeRenderer = new ShapeRenderer();
         batch = new SpriteBatch();
 //        img = new Texture("prev.png");
         img1 = new Texture("bgm2.png");
         img2= new Texture("start.png");
-          img3 = new Texture("tank3.gif");
+        img3 = new Texture("tank3.gif");
         img4 = new Texture("tank2.png");
         img5 = new Texture("abr.png");
         background = new Background(img1);
         //prev = new Button(img);
         select = new Button(img2);
         //next = new Button(img3);
-      //  prev2 = new Button(img);
+        //  prev2 = new Button(img);
         tank1 = new Button(img4);
         tank2 = new Button(img5);
         tank3 = new Button(img3);
@@ -68,10 +59,10 @@ public class SelectTank implements Screen {
         tank2.getSprite().setScale(0.75F, 0.75F);
         tank3.getSprite().setScale(0.75F, 0.75F);
 
-       // next2 = new Button(img3);
+        // next2 = new Button(img3);
 
 
-        Vector2 position2 = new Vector2(Gdx.graphics.getWidth()/2 - 260,-150);
+        Vector2 position2 = new Vector2(Gdx.graphics.getWidth()/2 - 260,-190);
         Vector2 position3 = new Vector2(200,100);
 
         Vector2 positionB = new Vector2(400,100);
@@ -83,7 +74,7 @@ public class SelectTank implements Screen {
         select.setPosition(position2);
         select.getSprite().setScale((float) 0.5, (float) 0.5);
 
-        Vector2 pos = new Vector2(-200,130);
+        Vector2 pos = new Vector2(-200,140);
         Vector2 posB = new Vector2(750,40);
         Vector2 position = new Vector2(140,130);
 
@@ -105,11 +96,10 @@ public class SelectTank implements Screen {
 
     @Override
     public void render(float delta) {
-
         batch.begin();
         background.draw(batch);
 //        prev.draw(batch);
-
+        select.draw(batch);
 //        next.draw(batch);
 //        prev2.draw(batch);
         tank1.draw(batch);
@@ -118,15 +108,6 @@ public class SelectTank implements Screen {
 
         //next2.draw(batch);
         batch.end();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLACK);
-        shapeRenderer.rect(0,0,5000,200);
-        shapeRenderer.end();
-        batch.begin();
-        select.draw(batch);
-        batch.end();
-
-
         if(Gdx.input.isKeyJustPressed(Input.Keys.S)){
             mainClass.setScreen(new MainGameScreen(mainClass));
         }

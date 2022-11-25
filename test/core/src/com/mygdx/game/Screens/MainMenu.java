@@ -8,7 +8,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Background;
@@ -64,6 +68,7 @@ public class MainMenu implements Screen, InputProcessor {
         newG = new ImageButton(drawable);
         background.setPosition(position4);
 
+
     }
 
     @Override
@@ -76,6 +81,9 @@ public class MainMenu implements Screen, InputProcessor {
         resumeGame.draw(batch);
         exit.draw(batch);
         batch.end();
+
+
+
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
             mainClass.setScreen(new SelectTank(mainClass));

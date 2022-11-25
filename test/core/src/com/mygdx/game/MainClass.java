@@ -13,6 +13,7 @@ public class MainClass extends Game implements ApplicationListener {
     private MyGdxGame myGdxGame;
     private MainGameScreen mainGameScreen;
     private SelectTank selectTank;
+    private SelectTank2 selectTank2;
     void setPauseMenu()
     {
         pauseMenu=new PauseMenu(this);
@@ -25,6 +26,10 @@ public class MainClass extends Game implements ApplicationListener {
     {
         selectTank=new SelectTank(this);
         setScreen(selectTank);
+    }void setSelectTank2Menu()
+    {
+        selectTank2=new SelectTank2(this);
+        setScreen(selectTank2);
     }void setLoadGameMenu()
     {
         loadGameMenu = new LoadGameMenu(this);

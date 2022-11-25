@@ -22,7 +22,7 @@ public class Background {
         return sprite;
     }
 
-    public void setSprite(Sprite sprite) {
+    private void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
 

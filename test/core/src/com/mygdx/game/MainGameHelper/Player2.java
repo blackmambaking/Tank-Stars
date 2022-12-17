@@ -6,14 +6,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Screens.MainGameScreen;
 
-public class Player2 extends Player{
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Player2 extends Player  {
     private Vector2 position;
     private Vector2 positionLaser;
     private Sprite sprite;
     private Sprite laserSprite;
     private float speed = 300;
     private int health;
+    private ArrayList<Float> terrain;
 
     public Vector2 getPosition() {
         return position;
@@ -73,9 +78,14 @@ public class Player2 extends Player{
 
     private float LaserSpeed = 300;
     public Player2(Texture img, Texture laserImg){
+        terrain = new ArrayList<>();
+        for(int i = 0; i< 1500; i++){
+            float y = (float) ((float) 50*(Math.abs(3*Math.sin(i *0.001) + 2*Math.sin(i * 0.01) + 2*Math.sin(i * 0.0016))))+80;
+            terrain.add(y);
+        }
         sprite = new Sprite(img);
         laserSprite = new Sprite(laserImg);
-        position = new Vector2(Gdx.graphics.getWidth()/2 - 300,-100);
+        position = new Vector2(800, terrain.get(800));
         positionLaser = new Vector2(Gdx.graphics.getWidth()/2,1000);
         sprite.setScale((float) 0.2);
         sprite.flip(true, false);
@@ -91,11 +101,12 @@ public class Player2 extends Player{
             position.x -= deltaTime*speed;
         }if(Gdx.input.isKeyPressed(Input.Keys.D)){
             position.x += deltaTime*speed;
-        }if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            position.y += deltaTime*speed;
-        }if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            position.y -= deltaTime*speed;
         }
+//        if(Gdx.input.isKeyPressed(Input.Keys.W)){
+//            position.y += deltaTime*speed;
+//        }if(Gdx.input.isKeyPressed(Input.Keys.S)){
+//            position.y -= deltaTime*speed;
+//        }
 //        if(position.x - sprite.getWidth()* sprite.getScaleX()/2 <=0){
 //            position.x = sprite.getWidth()* sprite.getScaleX()/2;
 //        }

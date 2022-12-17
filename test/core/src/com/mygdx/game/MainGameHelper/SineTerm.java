@@ -1,6 +1,8 @@
 package com.mygdx.game.MainGameHelper;
 
-final public class SineTerm {
+import java.io.Serializable;
+
+final public class SineTerm  {
     private final float amplitude;
     private final float waveLength;
     private final float phaseDifference;

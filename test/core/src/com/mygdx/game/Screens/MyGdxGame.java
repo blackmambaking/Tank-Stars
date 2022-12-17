@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.*;
 import com.mygdx.game.MainGameHelper.*;
 
+import java.io.Serializable;
 import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
@@ -28,7 +29,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	private Background background;
 	private Health health;
 	private Health2 health2;
-	private Terrain terrain;
+
 	private SineTerm sineTerm;
 	private SineTerm sineTerm2;
 

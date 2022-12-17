@@ -14,6 +14,8 @@ import com.mygdx.game.Button;
 import com.mygdx.game.MainClass;
 import jdk.tools.jmod.Main;
 
+import java.io.Serializable;
+
 public class SelectTank implements Screen {
     private final MainClass mainClass;
     private SpriteBatch batch;
@@ -25,80 +27,59 @@ public class SelectTank implements Screen {
     private Texture img5;
     private Background background;
 
-    private Button prev;
-    private Button select;
-    private Button next;
-    private Button prev2;
 
-    private Button next2;
+    private Button select;
 
     private Button tank1;
     private Button tank2;
     private Button tank3;
     private ShapeRenderer shapeRenderer;
-    private BitmapFont font;
-    private BitmapFont font1;
-    private BitmapFont font2;
+
+    private Vector2 pos;
+    private Vector2 posB;
+    private Vector2 position2;
+    private Vector2 position4;
+    private Vector2 position;
 
 
     public SelectTank(MainClass mainClass) {
         this.mainClass = mainClass;
+        shapeRenderer = new ShapeRenderer();
+        batch = new SpriteBatch();
+
+        img1 = new Texture("bgm2.png");
+        img2= new Texture("start.png");
+        img3 = new Texture("tank3.gif");
+        img4 = new Texture("tank2.png");
+        img5 = new Texture("abr.png");
+        background = new Background(img1);
+        select = new Button(img2);
+        tank1 = new Button(img4);
+        tank2 = new Button(img5);
+        tank3 = new Button(img3);
+        position2 = new Vector2(Gdx.graphics.getWidth()/2 - 260,-150);
+        position4 = new Vector2(0,0);
+        //position4 = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+        pos = new Vector2(-200,130);
+        posB = new Vector2(750,40);
+        position = new Vector2(140,130);
+
     }
 
     @Override
     public void show() {
-        shapeRenderer = new ShapeRenderer();
-        batch = new SpriteBatch();
-//        img = new Texture("prev.png");
-        img1 = new Texture("bgm2.png");
-        img2= new Texture("start.png");
-          img3 = new Texture("tank3.gif");
-        img4 = new Texture("tank2.png");
-        img5 = new Texture("abr.png");
-        background = new Background(img1);
-        //prev = new Button(img);
-        select = new Button(img2);
-        //next = new Button(img3);
-      //  prev2 = new Button(img);
-        tank1 = new Button(img4);
-        tank2 = new Button(img5);
-        tank3 = new Button(img3);
+
 
         tank1.getSprite().setScale(0.75F, 0.75F);
         tank2.getSprite().setScale(0.75F, 0.75F);
         tank3.getSprite().setScale(0.75F, 0.75F);
 
-       // next2 = new Button(img3);
-
-
-        Vector2 position2 = new Vector2(Gdx.graphics.getWidth()/2 - 260,-150);
-        Vector2 position3 = new Vector2(200,100);
-
-        Vector2 positionB = new Vector2(400,100);
-
-        Vector2 position3B = new Vector2(700,100);
-
-        Vector2 position4 = new Vector2(0,0);
-//        prev.setPosition(position);
         select.setPosition(position2);
         select.getSprite().setScale((float) 0.5, (float) 0.5);
-
-        Vector2 pos = new Vector2(-200,130);
-        Vector2 posB = new Vector2(750,40);
-        Vector2 position = new Vector2(140,130);
 
         tank1.setPosition(pos);
         tank2.setPosition(posB);
         tank3.setPosition(position);
-
-//        next.setPosition(position3);
-
-//        prev2.setPosition(positionB);
-//
-//        next2.setPosition(position3B);
-//
-//        prev.getSprite().flip(true, false);
-//        prev2.getSprite().flip(true, false);
         background.setPosition(position4);
 
     }
@@ -108,15 +89,11 @@ public class SelectTank implements Screen {
 
         batch.begin();
         background.draw(batch);
-//        prev.draw(batch);
 
-//        next.draw(batch);
-//        prev2.draw(batch);
         tank1.draw(batch);
         tank2.draw(batch);
         tank3.draw(batch);
 
-        //next2.draw(batch);
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLACK);

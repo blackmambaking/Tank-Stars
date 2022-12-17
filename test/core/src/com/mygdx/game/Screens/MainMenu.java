@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -19,10 +21,12 @@ import com.mygdx.game.Background;
 import com.mygdx.game.Button;
 import com.mygdx.game.MainClass;
 
+import java.io.Serializable;
+
 import static java.lang.System.exit;
 
-public class MainMenu implements Screen, InputProcessor {
-    MainClass mainClass;
+public class MainMenu implements Screen {
+    private MainClass mainClass;
 
     private SpriteBatch batch;
     private Texture img;
@@ -30,45 +34,45 @@ public class MainMenu implements Screen, InputProcessor {
     private Texture img2;
     private Texture img3;
     private Background background;
-
     private Button newGame;
     private Button resumeGame;
     private Button exit;
     private ImageButton newG;
-
     private Drawable drawable;
+
+    private Vector2 position;
+    private Vector2 position2;
+    private Vector2 position3;
+    private Vector2 position4;
     public MainMenu(MainClass mainClass) {
         this.mainClass = mainClass;
-    }
-
-    @Override
-    public void show() {
-
         batch = new SpriteBatch();
         img = new Texture("logo3.jpg");
-        img1 = new Texture("new.png");
-        img2= new Texture("load.png");
-        img3 = new Texture("exit.png");
+        img1 = new Texture("newA.png");
+        img2= new Texture("loadA.png");
+        img3 = new Texture("exitA.png");
         background = new Background(img);
         newGame = new Button(img1);
         resumeGame = new Button(img2);
         exit = new Button(img3);
-        Vector2 position = new Vector2(300,100);
-        Vector2 position2 = new Vector2(500,100);
-        Vector2 position3 = new Vector2(700,100);
-        Vector2 position4 = new Vector2(0,20);
+        position = new Vector2(70,-150);
+        position2 = new Vector2(270,-150);
+        position3 = new Vector2(470,-150);
+        position4 = new Vector2(0,20);
+        drawable = new TextureRegionDrawable(new TextureRegion(img1));
+        newG = new ImageButton(drawable);
+    }
+
+    @Override
+    public void show() {
         newGame.setPosition(position);
         resumeGame.setPosition(position2);
         exit.setPosition(position3);
-        newGame.getSprite().setScale(1);
-        resumeGame.getSprite().setScale(1);
-        exit.getSprite().setScale(1);
-
-        drawable = new TextureRegionDrawable(new TextureRegion(img1));
-        newG = new ImageButton(drawable);
+        newGame.getSprite().setScale(1.2F);
+        resumeGame.getSprite().setScale(1.2F);
+        exit.getSprite().setScale(1.2F);
         background.setPosition(position4);
-
-
+        background.getSprite().setScale(1.2F);
     }
 
     @Override
@@ -76,21 +80,23 @@ public class MainMenu implements Screen, InputProcessor {
         batch.begin();
         background.draw(batch);
         //newG.draw(batch, 1);
-
         newGame.draw(batch);
         resumeGame.draw(batch);
         exit.draw(batch);
         batch.end();
-
-
-
-
         if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
             mainClass.setScreen(new SelectTank(mainClass));
         }if(Gdx.input.isKeyJustPressed(Input.Keys.L)){
             mainClass.setScreen(new LoadGameMenu(mainClass));
         }if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
             exit(0);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
+            mainClass.setScreen(new SplashScreen(mainClass));
+        }
+        if(Gdx.input.isTouched()){
+            if(newGame.getSprite().getBoundingRectangle().contains((float)Gdx.input.getX(),(float)Gdx.input.getY())){
+                mainClass.setScreen(new SelectTank(mainClass));
+            }
         }
 
     }
@@ -121,43 +127,4 @@ public class MainMenu implements Screen, InputProcessor {
     }
 
 
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
-    }
 }

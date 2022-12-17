@@ -5,6 +5,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Screens.*;
 
+import java.io.Serializable;
+
 public class MainClass extends Game implements ApplicationListener {
 
     private PauseMenu pauseMenu;
@@ -14,6 +16,7 @@ public class MainClass extends Game implements ApplicationListener {
     private MainGameScreen mainGameScreen;
     private SelectTank selectTank;
     private SelectTank2 selectTank2;
+    private SplashScreen splashScreen;
     void setPauseMenu()
     {
         pauseMenu=new PauseMenu(this);
@@ -38,11 +41,16 @@ public class MainClass extends Game implements ApplicationListener {
     {
         mainGameScreen = new MainGameScreen(this);
         setScreen(mainGameScreen);
+    }void setSplashScreen()
+    {
+        splashScreen = new SplashScreen(this);
+        setScreen(splashScreen);
     }
+
     @Override
     public void create() {
 
-        setMainMenu();
+        setSplashScreen();
     }
     @Override
     public void dispose() {

@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class Background {
+import java.awt.*;
+import java.io.Serializable;
+
+public class Background  {
     private Vector2 position;
     private Sprite sprite;
 

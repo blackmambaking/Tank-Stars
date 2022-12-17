@@ -1,10 +1,10 @@
 package com.mygdx.game.MainGameHelper;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+
+import java.io.Serializable;
 
 abstract public class Player {
     private Vector2 position;
@@ -15,6 +15,9 @@ abstract public class Player {
     private String name;
 
     private int health;
+
+    private Armoury weapons;
+
     public int getHealth() {
         return health;
     }

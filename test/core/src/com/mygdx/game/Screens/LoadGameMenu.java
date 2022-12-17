@@ -13,6 +13,8 @@ import com.mygdx.game.MainClass;
 
 import javax.swing.text.View;
 
+import java.io.Serializable;
+
 import static java.lang.System.exit;
 
 public class LoadGameMenu implements Screen {
@@ -33,12 +35,15 @@ public class LoadGameMenu implements Screen {
     private BitmapFont font1;
     private BitmapFont font2;
 
-    public LoadGameMenu(MainClass mainClass) {
-        this.mainClass = mainClass;
-    }
+    private Vector2 position;
+    private Vector2 position2;
+    private Vector2 position3;
+    private Vector2 position4;
+    private Vector2 position5;
 
-    @Override
-    public void show() {
+    public LoadGameMenu(MainClass mainClass) {
+
+        this.mainClass = mainClass;
         batch = new SpriteBatch();
         img = new Texture("bgm3.png");
         img1 = new Texture("ld.png");
@@ -46,28 +51,36 @@ public class LoadGameMenu implements Screen {
         img3 = new Texture("ld.png");
         img4 = new Texture("a.jpg");
         background = new Background(img);
-        background.getSprite().setScale(1);
         ld1 = new Button(img1);
         ld2 = new Button(img2);
         ld3 = new Button(img3);
         ld4 = new Button(img4);
+        font = new BitmapFont();
+        font1 = new BitmapFont();
+        font2 = new BitmapFont();
+        position = new Vector2(0,-100);
+        position2 = new Vector2(0,100);
+        position3 = new Vector2(0,300);
+        position4 = new Vector2(0,0);
+        position5 = new Vector2(210,-450);
+    }
+
+    @Override
+    public void show() {
+
+        background.getSprite().setScale(1);
+
         ld1.getSprite().setScale(1F, 0.4F);
         ld2.getSprite().setScale(1F, 0.4F);
         ld3.getSprite().setScale(1F, 0.4F);
         ld4.getSprite().setScale(0.45F, 0.5F);
-        Vector2 position = new Vector2(0,-100);
-        Vector2 position2 = new Vector2(0,100);
-        Vector2 position3 = new Vector2(0,300);
-        Vector2 position4 = new Vector2(0,0);
-        Vector2 position5 = new Vector2(210,-450);
+
         ld1.setPosition(position);
         ld2.setPosition(position2);
         ld3.setPosition(position3);
         ld4.setPosition(position5);
         background.setPosition(position4);
-        font = new BitmapFont();
-        font1 = new BitmapFont();
-        font2 = new BitmapFont();
+
         font.getData().setScale(2);
         font1.getData().setScale(2);
         font2.getData().setScale(2);

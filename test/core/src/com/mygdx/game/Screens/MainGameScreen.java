@@ -3,7 +3,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -58,8 +57,10 @@ public class MainGameScreen implements Screen {
     private ShapeRenderer shapeRenderer8;
     private ShapeRenderer shapeRenderer9;
 
-    private ArrayList <Float> trajectoryX;
-    private ArrayList <Float> trajectoryY;
+    private ArrayList <Float> trajectoryX_pl1;
+    private ArrayList <Float> trajectoryY_pl1;
+    private ArrayList <Float> trajectoryX_pl2;
+    private ArrayList <Float> trajectoryY_pl2;
     private Button pause;
 
     private Vector2 position;
@@ -109,8 +110,10 @@ public class MainGameScreen implements Screen {
         sineTerm = new SineTerm(1, 1/2, 0);
         sineTerm2 = new SineTerm(2, 1/5, 2);
         terrain = new ArrayList<>();
-        trajectoryX = new ArrayList<>();
-        trajectoryY = new ArrayList<>();
+        trajectoryX_pl1 = new ArrayList<>();
+        trajectoryY_pl1 = new ArrayList<>();
+        trajectoryX_pl2 = new ArrayList<>();
+        trajectoryY_pl2 = new ArrayList<>();
         for(int i = 0; i< 1500; i++){
             float y = (float) ((float) 50*(Math.abs(3*Math.sin(i *0.001) + 2*Math.sin(i * 0.01) + 2*Math.sin(i * 0.0016))))+80;
             terrain.add(y);
@@ -192,6 +195,8 @@ public class MainGameScreen implements Screen {
             health2.draw(batch);
             pause.draw(batch);
             batch.end();
+
+
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor((float)204/255, (float)102/255, (float)0 , (float)1);
             for(int i = 0; i< 1500; i++){
@@ -225,57 +230,72 @@ public class MainGameScreen implements Screen {
 //            shapeRenderer3.circle(player1.getSprite().getX() +390, player1.getSprite().getY()+140, 2);
 //            shapeRenderer3.end();
 
+
+            //making velocity and angle meter for player 1,2
             shapeRenderer4.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer4.setColor(Color.MAROON);
             shapeRenderer4.box(10, 10, 0, 20, 400, 0);
+            shapeRenderer4.box(Gdx.graphics.getWidth() -30, 10, 0, 20, 400, 0);
             shapeRenderer4.end();
 
             shapeRenderer7.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer7.setColor(Color.RED);
             shapeRenderer7.box(10F, 10F, (float) 0, 20F, (float) player1.getAttackSpeed(), 0);
+            shapeRenderer7.box(Gdx.graphics.getWidth() -30, 10F, (float) 0, 20F, (float) player2.getAttackSpeed(), 0);
             shapeRenderer7.end();
 
             shapeRenderer5.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer5.setColor(Color.LIGHT_GRAY);
             shapeRenderer5.box(40, 10, 0, 20, 180, 0);
+            shapeRenderer5.box(Gdx.graphics.getWidth() -60, 10, 0, 20, 180, 0);
             shapeRenderer5.end();
 
             shapeRenderer6.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer6.setColor(Color.BLUE);
             shapeRenderer6.box(40F, 10F, 0F, 20F, (float) player1.getAngle(), 0);
+            shapeRenderer6.box(Gdx.graphics.getWidth() -60F, 10F, 0F, 20F, (float) player2.getAngle(), 0);
             shapeRenderer6.end();
 
-//            for(int i = 0; i< 10; i++){
-//                float x = (float) (player1.getAttackSpeed()* Math.cos(player1.getAngle()) * (i+1));
-//                float y = (float) (player1.getAttackSpeed()* Math.sin(player1.getAngle()) * (i+1) - 0.5*9.8*(i+1)*(i+1));
-//                trajectoryX.add(x +player1.getSprite().getX() +350);
-//                trajectoryY.add(y +  player1.getSprite().getY()+140);
-//            }
+
+            //aiming for player 1
             for(int i = 0; i< 100000; i++){
                 float x = (float) (player1.getAttackSpeed()* Math.cos(player1.getAngle()) * 0.0167*(i*100+1));
                 float y = (float) (player1.getAttackSpeed()* Math.sin(player1.getAngle()) * 0.0167*(i*100+1) - 0.5*9.8*(i*100+1)*(i*100+1)*0.0167*0.0167);
-                trajectoryX.add(x +player1.getSprite().getX() +350);
-                trajectoryY.add(y +  player1.getSprite().getY()+140);
+                trajectoryX_pl1.add(x +player1.getSprite().getX() +350);
+                trajectoryY_pl1.add(y +  player1.getSprite().getY()+140);
             }
 
 
             shapeRenderer8.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer8.setColor(Color.WHITE);
             for(int i = 1; i< 10; i++){
-                shapeRenderer8.circle(trajectoryX.get(i), trajectoryY.get(i), 4);
+                shapeRenderer8.circle(trajectoryX_pl1.get(i), trajectoryY_pl1.get(i), 4);
             }
             shapeRenderer8.end();
-//            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-//                player1.getLaserSprite().setX(player1.getSprite().getX() +125) ;
-//                player1.getLaserSprite().setY(player1.getSprite().getY() -60) ;
-//            }
-//            float x = (float) (player1.getAttackSpeed()* Math.cos(player1.getAngle()) * (i+1));
-//            float y = (float) (player1.getAttackSpeed()* Math.sin(player1.getAngle()) * (i+1) - 0.5*9.8*(i+1)*(i+1));
-//            player1.getLaserSprite().setX(x);
-//            player1.getLaserSprite().setY(y);
+            trajectoryY_pl1.clear();
+            trajectoryX_pl1.clear();
 
-            trajectoryY.clear();
-            trajectoryX.clear();
+            //aiming for player 2
+            for(int i = 0; i< 100000; i++){
+                float x = (float) (player2.getAttackSpeed()* Math.cos(player2.getAngle()) * 0.0167*(i*100+1));
+                float y = (float) (player2.getAttackSpeed()* Math.sin(player2.getAngle()) * 0.0167*(i*100+1) - 0.5*9.8*(i*100+1)*(i*100+1)*0.0167*0.0167);
+                trajectoryX_pl2.add(x +player2.getSprite().getX() +350);
+                trajectoryY_pl2.add(y +  player2.getSprite().getY()+140);
+            }
+            shapeRenderer9.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer9.setColor(Color.WHITE);
+            for(int i = 1; i< 10; i++){
+                shapeRenderer9.circle(trajectoryX_pl2.get(i), trajectoryY_pl2.get(i), 4);
+            }
+            shapeRenderer9.end();
+            trajectoryY_pl2.clear();
+            trajectoryX_pl2.clear();
+
+
+
+
+
+
 
             if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
                 mainClass.setScreen(new PauseMenu(mainClass));

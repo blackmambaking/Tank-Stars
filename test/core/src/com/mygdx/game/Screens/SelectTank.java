@@ -49,7 +49,7 @@ public class SelectTank implements Screen {
 
         img1 = new Texture("bgm2.png");
         img2= new Texture("start.png");
-        img3 = new Texture("tank3.gif");
+        img3 = new Texture("tank3.png");
         img4 = new Texture("tank2.png");
         img5 = new Texture("abr.png");
         background = new Background(img1);
@@ -61,8 +61,8 @@ public class SelectTank implements Screen {
         position4 = new Vector2(0,0);
         //position4 = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
         pos = new Vector2(-200,130);
-        posB = new Vector2(750,40);
-        position = new Vector2(140,130);
+        posB = new Vector2(200,130);
+        position = new Vector2(600,125);
 
     }
 

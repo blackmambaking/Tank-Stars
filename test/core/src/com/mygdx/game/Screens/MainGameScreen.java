@@ -57,6 +57,9 @@ public class MainGameScreen implements Screen {
     private ShapeRenderer shapeRenderer7;
     private ShapeRenderer shapeRenderer8;
     private ShapeRenderer shapeRenderer9;
+
+    private ArrayList <Float> trajectoryX;
+    private ArrayList <Float> trajectoryY;
     private Button pause;
 
     private Vector2 position;
@@ -75,14 +78,14 @@ public class MainGameScreen implements Screen {
         this.mainClass = mainClass;
         img = new Texture("bgm2.png");
         img2 = new Texture("tank2.png");
-        img3 = new Texture("laser.png");
+        img3 = new Texture("bomb.png");
         img4 = new Texture("full.png");
         img5 = new Texture("full.png");
         img6 = new Texture("terrain.png");
 
         img7 = new Texture("fire.png");
         img8 = new Texture("abr.png");
-        img9 = new Texture("laser2.png");
+        img9 = new Texture("bomb.png");
         img10 = new Texture("pause.png");
         player1 = new Player1(img2, img3);
         player2 = new Player2(img8, img9);
@@ -106,6 +109,8 @@ public class MainGameScreen implements Screen {
         sineTerm = new SineTerm(1, 1/2, 0);
         sineTerm2 = new SineTerm(2, 1/5, 2);
         terrain = new ArrayList<>();
+        trajectoryX = new ArrayList<>();
+        trajectoryY = new ArrayList<>();
         for(int i = 0; i< 1500; i++){
             float y = (float) ((float) 50*(Math.abs(3*Math.sin(i *0.001) + 2*Math.sin(i * 0.01) + 2*Math.sin(i * 0.0016))))+80;
             terrain.add(y);
@@ -188,12 +193,29 @@ public class MainGameScreen implements Screen {
             pause.draw(batch);
             batch.end();
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.setColor((float)204/255, (float)102/255, (float)0 , (float)1);
             for(int i = 0; i< 1500; i++){
              shapeRenderer.box(i,0,0,1, terrain.get(i),0 );
             }
+            shapeRenderer.setColor((float)153/255, (float)76/255, (float)0, (float)1);
+            for(int i = 0; i< 1500; i++){
+                shapeRenderer.box(i,0,0,1, terrain.get(i)-20,0 );
+            }
+            shapeRenderer.setColor((float)102/255, (float)51/255, (float)0, (float)1);
+            for(int i = 0; i< 1500; i++){
+                shapeRenderer.box(i,0,0,1, terrain.get(i)-60,0 );
+            }
+            shapeRenderer.setColor(Color.BLACK);
+            for(int i = 0; i< 1500; i++){
+                shapeRenderer.box(i,0,0,1, terrain.get(i)-120,0 );
+            }
 
             shapeRenderer.end();
+            batch.begin();
+            player1.draw(batch);
+            player2.draw(batch);
+            batch.end();
+
 //            shapeRenderer2.begin(ShapeRenderer.ShapeType.Filled);
 //            shapeRenderer2.setColor(Color.RED);
 //            shapeRenderer2.circle(player1.getSprite().getX() +350, player1.getSprite().getY()+140, 2);
@@ -222,6 +244,38 @@ public class MainGameScreen implements Screen {
             shapeRenderer6.setColor(Color.BLUE);
             shapeRenderer6.box(40F, 10F, 0F, 20F, (float) player1.getAngle(), 0);
             shapeRenderer6.end();
+
+//            for(int i = 0; i< 10; i++){
+//                float x = (float) (player1.getAttackSpeed()* Math.cos(player1.getAngle()) * (i+1));
+//                float y = (float) (player1.getAttackSpeed()* Math.sin(player1.getAngle()) * (i+1) - 0.5*9.8*(i+1)*(i+1));
+//                trajectoryX.add(x +player1.getSprite().getX() +350);
+//                trajectoryY.add(y +  player1.getSprite().getY()+140);
+//            }
+            for(int i = 0; i< 100000; i++){
+                float x = (float) (player1.getAttackSpeed()* Math.cos(player1.getAngle()) * 0.0167*(i*100+1));
+                float y = (float) (player1.getAttackSpeed()* Math.sin(player1.getAngle()) * 0.0167*(i*100+1) - 0.5*9.8*(i*100+1)*(i*100+1)*0.0167*0.0167);
+                trajectoryX.add(x +player1.getSprite().getX() +350);
+                trajectoryY.add(y +  player1.getSprite().getY()+140);
+            }
+
+
+            shapeRenderer8.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer8.setColor(Color.WHITE);
+            for(int i = 1; i< 10; i++){
+                shapeRenderer8.circle(trajectoryX.get(i), trajectoryY.get(i), 4);
+            }
+            shapeRenderer8.end();
+//            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+//                player1.getLaserSprite().setX(player1.getSprite().getX() +125) ;
+//                player1.getLaserSprite().setY(player1.getSprite().getY() -60) ;
+//            }
+//            float x = (float) (player1.getAttackSpeed()* Math.cos(player1.getAngle()) * (i+1));
+//            float y = (float) (player1.getAttackSpeed()* Math.sin(player1.getAngle()) * (i+1) - 0.5*9.8*(i+1)*(i+1));
+//            player1.getLaserSprite().setX(x);
+//            player1.getLaserSprite().setY(y);
+
+            trajectoryY.clear();
+            trajectoryX.clear();
 
             if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
                 mainClass.setScreen(new PauseMenu(mainClass));
@@ -253,33 +307,24 @@ public class MainGameScreen implements Screen {
 
         }catch (Exception e){
             System.out.println("Error");
-
         }
-
-
-
-
         //batch.draw(img, 0, 0);
     }
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override

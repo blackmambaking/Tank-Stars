@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Screens.MainGameScreen;
@@ -22,8 +23,10 @@ public class Player1 extends Player {
 
     private double angle;
     private double attackSpeed;
-    private float speed = 300;
+    private float speed = 50;
     private int health;
+    private float time;
+    private int fire;
 
     private ArrayList<Float> terrain;
 
@@ -98,12 +101,13 @@ public class Player1 extends Player {
         positionLaser = new Vector2(Gdx.graphics.getWidth()/2,1000);
         sprite.setScale((float) 0.2);
         sprite.setRotation(0);
-        laserSprite.setScale((float) 0.2);
+        laserSprite.setScale((float) 0.1);
         this.setName("Player1");
         this.health = 100;
-        this.attackSpeed = 0;
-        this.angle = 0;
-
+        this.attackSpeed = 70;
+        this.angle = 20;
+        this.time = 0;
+        this.fire = 0;
     }
 
     public double getAngle() {
@@ -128,44 +132,42 @@ public class Player1 extends Player {
             position.x = position.x - deltaTime*speed;
             position.y = terrain.get((int) (position.x)+350) -140;
             Float delY = terrain.get((int) (position.x)+351) - terrain.get((int) (position.x)+350);
-            Float delX = 1F;
-            sprite.rotate((float) Math.tanh((float)delY/delX));
+            Float delX = 4F;
+            float angle2 = (float) Math.tanh((float)delY/delX);
+
+            sprite.rotate(angle2);
+
 
         }if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             position.x = position.x + deltaTime*speed;
             position.y = terrain.get((int) (position.x)+350) -140;
             Float delY = terrain.get((int) (position.x)+351) - terrain.get((int) (position.x)+350);
-            Float delX = 1F;
-            sprite.rotate(-(float) Math.tanh((float)delY/delX));
-            //position.y += terrain.get((int) (position.x));
+            Float delX = 4F;
+            float angle2 = (float) Math.tanh((float)delY/delX);
+
+            sprite.rotate(-angle2);
+
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             if(this.angle < 180){
-                this.angle += deltaTime*speed;
+                this.angle += deltaTime;
             }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             if(this.angle > 10){
-                this.angle -= deltaTime*speed;
+                this.angle -= deltaTime;
             }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.L)){
             if(this.attackSpeed<400){
-                this.attackSpeed += deltaTime*speed;
+                this.attackSpeed += deltaTime*5;
             }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.K)){
             if(this.attackSpeed >10){
-            this.attackSpeed -= deltaTime*speed;
+            this.attackSpeed -= deltaTime*5;
         }}
 
-        
-
-//        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-//            position.y += deltaTime*speed;
-//        }if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-//            position.y -= deltaTime*speed;
-//        }
 //        if(position.x - sprite.getWidth()* sprite.getScaleX()/2 <=0){
 //            position.x = sprite.getWidth()* sprite.getScaleX()/2;
 //        }
@@ -179,12 +181,23 @@ public class Player1 extends Player {
             position.y = Gdx.graphics.getHeight() - sprite.getHeight()* sprite.getScaleY()/2;
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-
-            positionLaser.y = position.y +100;
-            positionLaser.x = position.x -174;
+            this.time = 0.5F;
+            this.laserSprite.setRotation(0);
+            this.fire = 1;
+            positionLaser.y = position.y - 60 ;
+            positionLaser.x = position.x +125;
         }
-        positionLaser.y += deltaTime*LaserSpeed;
 
+        float x = position.x  + 125+ (float) ((this.attackSpeed)* Math.cos(this.angle) * this.time) - 30;
+        float y = position.y - 60 + (float) ((this.attackSpeed)* Math.sin(this.angle) * this.time - 0.5*9.8*this.time*this.time) -50;
+
+        if(fire == 1){
+
+            positionLaser.x = x;
+            positionLaser.y = y;
+            this.time = this.time + deltaTime;
+            laserSprite.rotate(-deltaTime*10);
+        }
     }
     @Override
     public void draw(SpriteBatch batch){

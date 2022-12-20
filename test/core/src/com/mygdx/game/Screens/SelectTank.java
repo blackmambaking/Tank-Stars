@@ -110,6 +110,24 @@ public class SelectTank implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
             mainClass.setScreen(new MainMenu(mainClass));
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.X)){
+            mainClass.setTank1(1);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
+            mainClass.setTank1(2);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
+            mainClass.setTank1(3);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            mainClass.setTank2(1);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){
+            mainClass.setTank2(2);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+            mainClass.setTank2(3);
+        }
 
     }
 

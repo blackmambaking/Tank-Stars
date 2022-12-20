@@ -4,19 +4,14 @@ import java.io.Serializable;
 
 public class PlayerInfo implements Serializable {
     private String name;
-    private String tankName;
+    private int tankName;
 
-    public String getTankName() {
-        return tankName;
-    }
-
-    public void setTankName(String tankName) {
-        this.tankName = tankName;
-    }
 
     private int health;
     private float x;
     private float y;
+    private double attackAngle;
+    private double attackSpeed;
 
     public String getName() {
         return name;
@@ -50,11 +45,37 @@ public class PlayerInfo implements Serializable {
         this.y = y;
     }
 
-    public PlayerInfo(String name, String tank, int health, float x, float y) {
+    public int getTankName() {
+        return tankName;
+    }
+
+    public void setTankName(int tankName) {
+        this.tankName = tankName;
+    }
+
+    public double getAttackAngle() {
+        return attackAngle;
+    }
+
+    public void setAttackAngle(double attackAngle) {
+        this.attackAngle = attackAngle;
+    }
+
+    public double getAttackSpeed() {
+        return attackSpeed;
+    }
+
+    public void setAttackSpeed(double attackSpeed) {
+        this.attackSpeed = attackSpeed;
+    }
+
+    public PlayerInfo(String name, int tankName, int health, float x, float y, double attackAngle, double attackSpeed) {
         this.name = name;
+        this.tankName = tankName;
         this.health = health;
         this.x = x;
         this.y = y;
-        this.tankName = tank;
+        this.attackAngle = attackAngle;
+        this.attackSpeed = attackSpeed;
     }
 }

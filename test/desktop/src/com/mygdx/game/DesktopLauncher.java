@@ -13,7 +13,6 @@ public class DesktopLauncher {
 		config.useVsync(true);
 		config.setTitle("Tank Stars");
 		//new Lwjgl3Application(new MyGdxGame(), config);
-
 		new Lwjgl3Application(new MainClass(), config);
 
 	}

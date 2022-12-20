@@ -19,15 +19,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Background;
 import com.mygdx.game.Button;
 import com.mygdx.game.MainClass;
-import com.mygdx.game.MainGameHelper.PlayerInfo;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import static com.mygdx.game.Screens.MainGameScreen.pl1;
 import static com.mygdx.game.Screens.MainGameScreen.pl2;
 import static java.lang.System.exit;
 
-public class PauseMenu implements Screen {
+public class ResultScreen implements Screen {
 
     private MainClass mainClass;
     private SpriteBatch batch;
@@ -63,12 +65,8 @@ public class PauseMenu implements Screen {
     private Vector2 position6;
     private Vector2 position7;
     private Vector2 position8;
-    public static PlayerInfo playerInfo1;
-    public static PlayerInfo playerInfo2;
 
-
-
-    public PauseMenu(MainClass mainClass) {
+    public ResultScreen(MainClass mainClass) {
         this.mainClass = mainClass;
         batch = new SpriteBatch();
         img = new Texture("bgm4.png");
@@ -164,39 +162,6 @@ public class PauseMenu implements Screen {
         batch.end();
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
-
-            playerInfo1 = null;
-            playerInfo2 = null;
-
-            // Deserialization
-            try
-            {
-                // Reading the object from a file
-                FileInputStream file = new FileInputStream("player1.ser");
-                FileInputStream file2 = new FileInputStream("player2.ser");
-                ObjectInputStream in = new ObjectInputStream(file);
-                ObjectInputStream in2 = new ObjectInputStream(file2);
-
-                // Method for deserialization of object
-                playerInfo1 = (PlayerInfo) in.readObject();
-                playerInfo2 = (PlayerInfo) in.readObject();
-
-                in.close();
-                file.close();
-                in2.close();
-                file2.close();
-
-                System.out.println("Object has been deserialized ");
-
-            }
-
-            catch(IOException ex)
-            {
-                System.out.println("IOException is caught");
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-
             mainClass.setScreen(new MainGameScreen(mainClass));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){

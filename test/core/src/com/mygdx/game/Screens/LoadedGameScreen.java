@@ -1,4 +1,6 @@
 package com.mygdx.game.Screens;
+
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -25,7 +27,7 @@ import java.util.Vector;
 
 import static java.lang.Thread.sleep;
 
-public class MainGameScreen implements Screen {
+public class LoadedGameScreen implements Screen {
     private final MainClass mainClass;
     private SpriteBatch batch;
     private Random rn = new Random();
@@ -46,8 +48,8 @@ public class MainGameScreen implements Screen {
     private Texture img12;
     private Player1 player1;
     private Player2 player2;
-    public static PlayerInfo pl1;
-    public static PlayerInfo pl2;
+    public PlayerInfo pl1;
+    public PlayerInfo pl2;
     private Background background;
     private Health health;
     private Health2 health2;
@@ -85,7 +87,7 @@ public class MainGameScreen implements Screen {
     private Sprite normal;
     private Sprite normal2;
     private Vector2 laserPo;
-    public MainGameScreen(MainClass mainClass) {
+    public LoadedGameScreen(MainClass mainClass) {
         this.mainClass = mainClass;
         img = new Texture("bgm2.png");
         img2 = new Texture("tank2.png");
@@ -132,7 +134,7 @@ public class MainGameScreen implements Screen {
         normal.setScale((float) 0.2);
         normal2.setScale((float) 0.2);
 
-       // player2 = new Player2(img8, img9);
+        // player2 = new Player2(img8, img9);
         pause = new Button(img10);
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -238,12 +240,12 @@ public class MainGameScreen implements Screen {
             health2.draw(batch);
             pause.draw(batch);
             batch.end();
-            //making the terrain
+
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor((float)204/255, (float)102/255, (float)0 , (float)1);
             for(int i = 0; i< 1500; i++){
-             shapeRenderer.box(i,0,0,1, terrain.get(i),0 );
+                shapeRenderer.box(i,0,0,1, terrain.get(i),0 );
             }
             shapeRenderer.setColor((float)153/255, (float)76/255, (float)0, (float)1);
             for(int i = 0; i< 1500; i++){
@@ -336,8 +338,6 @@ public class MainGameScreen implements Screen {
             //player1.setLaserSprite(normal);
             //player2.setLaserSprite(normal);
 
-            //making blast and damage on attack
-
             if (player1.getLaserSprite().getBoundingRectangle().overlaps(player2.getSprite().getBoundingRectangle())) {
 
                 Sprite blast = new Sprite(img11);
@@ -346,7 +346,6 @@ public class MainGameScreen implements Screen {
 
                 player1.setPositionLaser(laserPo);
                 player2.setSprite(blast);
-                pl2.setHealth(pl2.getHealth()-10);
                 //sleep(1000);
                 //player2.setSprite(normal2);
                 //sleep(1000);
@@ -355,24 +354,19 @@ public class MainGameScreen implements Screen {
             if (player2.getLaserSprite().getBoundingRectangle().overlaps(player1.getSprite().getBoundingRectangle())) {
                 Sprite blast = new Sprite();
 
-               // player2.setLaserSprite(blast);
+                // player2.setLaserSprite(blast);
                 player2.setPositionLaser(laserPo);
                 player1.setSprite(blast);
-                pl1.setHealth(pl1.getHealth()-10);
                 //sleep(1000);
                 //player1.setSprite(normal);
                 //sleep(1000);
                 //player2.setLaserSprite(normal);
 
             }
-            //updating player info
-            pl1.setX(player1.getSprite().getX());
-            pl1.setY(player1.getSprite().getY());
-            pl2.setX(player2.getSprite().getX());
-            pl2.setY(player2.getSprite().getY());
-
-            //taking in game input for pausing the game
             if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+                mainClass.setScreen(new PauseMenu(mainClass));
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.F)){
                 try
                 {
                     //Saving of object in a file
@@ -395,7 +389,6 @@ public class MainGameScreen implements Screen {
                 {
                     System.out.println("IOException is caught" + ex);
                 }
-                mainClass.setScreen(new PauseMenu(mainClass));
             }
 
         }catch (Exception e){

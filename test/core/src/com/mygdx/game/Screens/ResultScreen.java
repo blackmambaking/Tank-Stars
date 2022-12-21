@@ -25,8 +25,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import static com.mygdx.game.Screens.MainGameScreen.pl1;
-import static com.mygdx.game.Screens.MainGameScreen.pl2;
+import static com.mygdx.game.Screens.MainGameScreen.*;
 import static java.lang.System.exit;
 
 public class ResultScreen implements Screen {
@@ -69,8 +68,8 @@ public class ResultScreen implements Screen {
     public ResultScreen(MainClass mainClass) {
         this.mainClass = mainClass;
         batch = new SpriteBatch();
-        img = new Texture("bgm4.png");
-        img1 = new Texture("ld.png");
+        img = new Texture("bgm3.png");
+        img1 = new Texture("victory.jpg");
         img2= new Texture("ld.png");
         img3 = new Texture("ld.png");
         img4 = new Texture("a.jpg");
@@ -87,7 +86,7 @@ public class ResultScreen implements Screen {
         quit = new Button(img6);
         drawable = new TextureRegionDrawable(img5);
         playButton =  new ImageButton(drawable);
-        position = new Vector2(0,-100);
+        position = new Vector2(-110,400);
         position2 = new Vector2(0,100);
         position3 = new Vector2(0,300);
         position4 = new Vector2(0,0);
@@ -95,7 +94,7 @@ public class ResultScreen implements Screen {
         font = new BitmapFont();
         font1 = new BitmapFont();
         font2 = new BitmapFont();
-        position6 = new Vector2(-60,50);
+        position6 = new Vector2(-40,-100);
         position7 = new Vector2(-60,250);
         position8 = new Vector2(-60,150);
     }
@@ -109,7 +108,7 @@ public class ResultScreen implements Screen {
         playButton.getImage().setScale(0.2F);
 
 
-        ld1.getSprite().setScale(1F, 0.4F);
+        ld1.getSprite().setScale(1F, 1F);
         ld2.getSprite().setScale(1F, 0.4F);
         ld3.getSprite().setScale(1F, 0.4F);
         save.getSprite().setScale(1F, 0.4F);
@@ -128,11 +127,11 @@ public class ResultScreen implements Screen {
         font2.getData().setScale(1);
 
         quit.getSprite().setScale(1.2F);
-        save.getSprite().setScale(1.2F);
-        resume.getSprite().setScale(1.2F);
+        //save.getSprite().setScale(1.2F);
+        //resume.getSprite().setScale(1.2F);
         quit.setPosition(position6);
-        save.setPosition(position7);
-        resume.setPosition(position8);
+        //save.setPosition(position7);
+        //resume.setPosition(position8);
 //        Stage stage = new Stage();
 //        Gdx.input.setInputProcessor(stage);
 //        stage.addActor(playButton);
@@ -145,33 +144,41 @@ public class ResultScreen implements Screen {
 
         batch.begin();
         background.draw(batch);
-//        ld1.draw(batch);
+        ld1.draw(batch);
 //        ld2.draw(batch);
 //        ld3.draw(batch);
         ld4.draw(batch);
         quit.draw(batch);
-        resume.draw(batch);
-        save.draw(batch);
+        //resume.draw(batch);
+        //save.draw(batch);
 //        font.draw(batch, "SAVE", 250, 520);
 //        font1.draw(batch, "EXIT", 250, 320);
 //        font2.draw(batch, "RESUME", 250, 120);
-//        font.getData().setScale(2);
+        font.getData().setScale(2);
 //        font1.getData().setScale(2);
 //        font2.getData().setScale(2);
         //playButton.draw(batch, 1);
+        if(winner == 1){
+            font.draw(batch, "Player 1\n  Wins!", 250, 300);
+
+        }if(winner == 2){
+            font.draw(batch, "Player 2\n  Wins!", 250, 300);
+        }
         batch.end();
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
-            mainClass.setScreen(new MainGameScreen(mainClass));
-        }
+
+
+//        if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+//            mainClass.setScreen(new MainGameScreen(mainClass));
+//        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){
             mainClass.setScreen(new MainMenu(mainClass));
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.S)){
-
-            //saving the state of the game
-
-        }
+//        if(Gdx.input.isKeyJustPressed(Input.Keys.S)){
+//
+//            //saving the state of the game
+//
+//        }
     }
 
     @Override

@@ -1,10 +1,14 @@
 package com.mygdx.game.MainGameHelper;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import java.io.Serializable;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 abstract public class Player {
     private Vector2 position;
@@ -94,5 +98,25 @@ abstract public class Player {
     }
     abstract public void update(float deltaTime);
     public void draw(SpriteBatch batch){};
+    public void updateSprite(Texture img, final Texture img2) throws InterruptedException {
+        sprite = new Sprite(img);
+        sprite.setScale((float) 0.25);
+//        position.x = x;
+//        position.y = y;
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                sprite = new Sprite(img2);
+                sprite.setScale((float) 0.25);
+//                Random rn = new Random();
+//                a = rn.nextInt(-300, 300);
+//                b = rn.nextInt(500, 800);
+//                position.y = b;
+//                position.x = a;
+            }
+        };
+        timer.schedule(timerTask, 1000L);
+    }
 
 }

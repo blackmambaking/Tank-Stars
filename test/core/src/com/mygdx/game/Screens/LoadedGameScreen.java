@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
+import static com.mygdx.game.Screens.LoadGameMenu.playerInfo1;
+import static com.mygdx.game.Screens.LoadGameMenu.playerInfo2;
 import static java.lang.Thread.sleep;
 
 public class LoadedGameScreen implements Screen {
@@ -65,6 +67,7 @@ public class LoadedGameScreen implements Screen {
     private ShapeRenderer shapeRenderer7;
     private ShapeRenderer shapeRenderer8;
     private ShapeRenderer shapeRenderer9;
+    private ShapeRenderer shapeRenderer10;
 
     private ArrayList <Float> trajectoryX_pl1;
     private ArrayList <Float> trajectoryY_pl1;
@@ -75,6 +78,7 @@ public class LoadedGameScreen implements Screen {
     private Vector2 position;
     private Vector2 position2;
     private Vector2 position3;
+    public static int winnerLoaded;
 
     private int score = 0;
     private int a;
@@ -89,14 +93,14 @@ public class LoadedGameScreen implements Screen {
     private Vector2 laserPo;
     public LoadedGameScreen(MainClass mainClass) {
         this.mainClass = mainClass;
+//        PauseMenu.playerInfo1 = null;
+//        PauseMenu.playerInfo2 = null;
         img = new Texture("bgm2.png");
         img2 = new Texture("tank2.png");
         img3 = new Texture("bomb.png");
         img4 = new Texture("full.png");
         img5 = new Texture("full.png");
         img6 = new Texture("terrain.png");
-
-
         img7 = new Texture("fire.png");
         img8 = new Texture("abr.png");
         img9 = new Texture("bomb.png");
@@ -104,8 +108,6 @@ public class LoadedGameScreen implements Screen {
         img11 = new Texture("fire.png");
         img12 = new Texture("tank3.png");
 
-
-        laserPo = new Vector2(1000, 1000);
         if(mainClass.getTank1() ==1){
             player1 = new Player1(img2, img3);
             normal = new Sprite(img2);
@@ -131,6 +133,30 @@ public class LoadedGameScreen implements Screen {
             normal2 = new Sprite(img12);
 
         }
+        pl1 = new PlayerInfo("Player1", mainClass.getTank1(), 500, player1.getSprite().getX(), player1.getSprite().getX(), player1.getAngle(), player1.getAttackSpeed());
+        pl2 = new PlayerInfo("Player2", mainClass.getTank2(), 500, player2.getSprite().getX(), player2.getSprite().getX(), player2.getAngle(), player2.getAttackSpeed());
+        if(playerInfo1 != null){
+
+            pl1 = playerInfo1;
+            Vector2 a = new Vector2(playerInfo1.getX(), playerInfo1.getY());
+            player1.setPosition(a);
+            player1.setAttackSpeed(playerInfo1.getAttackSpeed());
+            player1.setAngle(playerInfo1.getAttackAngle());
+            player1.setHealth(playerInfo1.getHealth());
+        }
+        if(playerInfo2 != null){
+            pl2 = playerInfo2;
+            Vector2 b = new Vector2(playerInfo2.getX(), playerInfo2.getY());
+            player2.setPosition(b);
+            player2.setAttackSpeed(playerInfo2.getAttackSpeed());
+            player2.setAngle(playerInfo2.getAttackAngle());
+            player2.setHealth(playerInfo2.getHealth());
+
+        }
+
+
+        laserPo = new Vector2(1000, 1000);
+
         normal.setScale((float) 0.2);
         normal2.setScale((float) 0.2);
 
@@ -146,6 +172,7 @@ public class LoadedGameScreen implements Screen {
         shapeRenderer7 = new ShapeRenderer();
         shapeRenderer8 = new ShapeRenderer();
         shapeRenderer9 = new ShapeRenderer();
+        shapeRenderer10 = new ShapeRenderer();
         position = new Vector2(-100,100);
         position2 = new Vector2(300,100);
         position3 = new Vector2(350,390);
@@ -201,12 +228,8 @@ public class LoadedGameScreen implements Screen {
     @Override
     public void show() {
 
-
         pause.setPosition(position3);
         pause.getSprite().setScale(0.1F);
-        pl1 = new PlayerInfo("Player1", mainClass.getTank1(), 100, player1.getSprite().getX(), player1.getSprite().getX(), player1.getAngle(), player1.getAttackSpeed());
-        pl2 = new PlayerInfo("Player2", mainClass.getTank2(), 100, player2.getSprite().getX(), player2.getSprite().getX(), player2.getAngle(), player2.getAttackSpeed());
-
 
     }
 
@@ -214,34 +237,32 @@ public class LoadedGameScreen implements Screen {
     public void render(float delta) {
 
         try{
-            if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
-                getPlayerInfo(player1);
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
-                getPlayerInfo(player2);
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.C)){
-                getPlayerHealth(health, player1);
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.V)){
-                getPlayerHealth(health2, player2);
-            }
+//            if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
+//                getPlayerInfo(player1);
+//            }
+//            if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
+//                getPlayerInfo(player2);
+//            }
+//            if(Gdx.input.isKeyJustPressed(Input.Keys.C)){
+//                getPlayerHealth(health, player1);
+//            }
+//            if(Gdx.input.isKeyJustPressed(Input.Keys.V)){
+//                getPlayerHealth(health2, player2);
+//            }
 
             ScreenUtils.clear(0, 0, 0, 1);
             batch.begin();
             background.draw(batch);
             player1.draw(batch);
             player2.draw(batch);
-            pl1.setX(player1.getSprite().getX());
-            pl1.setY(player1.getSprite().getY());
-            pl2.setX(player2.getSprite().getX());
-            pl2.setY(player2.getSprite().getY());
-            health.draw(batch);
-            health2.draw(batch);
+
+
+            //health.draw(batch);
+            //health2.draw(batch);
             pause.draw(batch);
             batch.end();
 
-
+            //making the terrain
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor((float)204/255, (float)102/255, (float)0 , (float)1);
             for(int i = 0; i< 1500; i++){
@@ -261,6 +282,22 @@ public class LoadedGameScreen implements Screen {
             }
 
             shapeRenderer.end();
+            batch.begin();
+            player1.draw(batch);
+            player2.draw(batch);
+            batch.end();
+
+            //making the health bars
+            shapeRenderer10.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer10.setColor(Color.LIGHT_GRAY);
+            shapeRenderer10.box(70, Gdx.graphics.getHeight() - 40, 0, 500, 20, 0);
+            shapeRenderer10.box(Gdx.graphics.getWidth()/2 +30, Gdx.graphics.getHeight() - 40, 0, 500, 20, 0);
+
+            shapeRenderer10.setColor(Color.RED);
+            shapeRenderer10.box(70F, Gdx.graphics.getHeight() - 40, (float) 0, pl1.getHealth(), 20, 0);
+            shapeRenderer10.box(Gdx.graphics.getWidth()/2 +30, Gdx.graphics.getHeight() - 40, (float) 0, pl2.getHealth(), 20, 0);
+            shapeRenderer10.end();
+
             batch.begin();
             player1.draw(batch);
             player2.draw(batch);
@@ -301,7 +338,6 @@ public class LoadedGameScreen implements Screen {
             shapeRenderer6.box(Gdx.graphics.getWidth() -60F, 10F, 0F, 20F, (float) player2.getAngle(), 0);
             shapeRenderer6.end();
 
-
             //aiming for player 1
             for(int i = 0; i< 100000; i++){
                 float x = (float) (player1.getAttackSpeed()* Math.cos(player1.getAngle()) * 0.0167*(i*100+1));
@@ -337,36 +373,62 @@ public class LoadedGameScreen implements Screen {
             trajectoryX_pl2.clear();
             //player1.setLaserSprite(normal);
             //player2.setLaserSprite(normal);
+            //making fuel ration per turn
+            shapeRenderer3.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer3.setColor(Color.LIGHT_GRAY);
+            shapeRenderer3.box(70, 10, 0, 20, 100, 0);
+            shapeRenderer3.box(Gdx.graphics.getWidth() -90, 10, 0, 20, 100, 0);
+            shapeRenderer3.end();
+
+            shapeRenderer2.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer2.setColor(Color.GOLD);
+            shapeRenderer2.box(70F, 10F, (float) 0, 20F, (float) player1.getFuel(), 0);
+            shapeRenderer2.box(Gdx.graphics.getWidth() -90, 10F, (float) 0, 20F, (float) player2.getFuel(), 0);
+            shapeRenderer2.end();
+
+            //updating player info
+            pl1.setX(player1.getSprite().getX());
+            pl1.setY(player1.getSprite().getY());
+            pl2.setX(player2.getSprite().getX());
+            pl2.setY(player2.getSprite().getY());
+            pl1.setHealth(player1.getHealth());
+            pl2.setHealth(player2.getHealth());
+            pl1.setAttackSpeed(player1.getAttackSpeed());
+            pl2.setAttackSpeed(player2.getAttackSpeed());
+            pl1.setAttackAngle(player1.getAngle());
+            pl2.setAttackAngle(player2.getAngle());
+
+            if(pl1.getHealth()<=0 || pl2.getHealth()<=0){
+                if(pl1.getHealth()<=0){
+                    winnerLoaded = 2;
+                } if(pl2.getHealth()<=0){
+                    winnerLoaded = 1;
+                }
+                mainClass.setScreen(new ResultScreen(mainClass));
+            }
+            //making blast and damage on attack
 
             if (player1.getLaserSprite().getBoundingRectangle().overlaps(player2.getSprite().getBoundingRectangle())) {
-
-                Sprite blast = new Sprite(img11);
-
-                //player1.setLaserSprite(blast);
-
                 player1.setPositionLaser(laserPo);
-                player2.setSprite(blast);
-                //sleep(1000);
-                //player2.setSprite(normal2);
-                //sleep(1000);
-                //player1.setLaserSprite(normal);
+                System.out.println("Blaaaast....");
+
+                player2.setHealth((int) (player2.getHealth() - 0.01));
+                pl2.setHealth((int) (pl2.getHealth()-0.01));
+                System.out.println(pl2.getHealth());
+
             }
             if (player2.getLaserSprite().getBoundingRectangle().overlaps(player1.getSprite().getBoundingRectangle())) {
-                Sprite blast = new Sprite();
-
+                System.out.println("Blaaaast....");
                 // player2.setLaserSprite(blast);
                 player2.setPositionLaser(laserPo);
-                player1.setSprite(blast);
-                //sleep(1000);
-                //player1.setSprite(normal);
-                //sleep(1000);
-                //player2.setLaserSprite(normal);
+
+                pl1.setHealth((int) (pl1.getHealth()-0.01));
+                player1.setHealth((int) (player1.getHealth() - 0.01));
+                System.out.println(pl1.getHealth());
 
             }
+            //taking in game input for pausing the game
             if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-                mainClass.setScreen(new PauseMenu(mainClass));
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.F)){
                 try
                 {
                     //Saving of object in a file
@@ -383,13 +445,16 @@ public class LoadedGameScreen implements Screen {
                     out2.writeObject(pl2);
                     out2.close();
                     file2.close();
-                    System.out.println("MainGame Screen has been serialized");
+                    System.out.println("LoadGame Screen has been serialized");
                 }
                 catch(IOException ex)
                 {
                     System.out.println("IOException is caught" + ex);
                 }
+                mainClass.setScreen(new PauseMenu(mainClass));
             }
+
+
 
         }catch (Exception e){
             System.out.println("Error");

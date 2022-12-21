@@ -81,7 +81,8 @@ public class MainClass extends Game implements ApplicationListener {
     @Override
     public void create() {
 
-        setSplashScreen();
+       setSplashScreen();
+       //setResultScreenScreen();
     }
     @Override
     public void dispose() {

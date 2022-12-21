@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
@@ -22,6 +25,9 @@ import com.mygdx.game.MainClass;
 import com.mygdx.game.MainGameHelper.PlayerInfo;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.util.Date;
+import java.util.Random;
 
 import static com.mygdx.game.Screens.MainGameScreen.pl1;
 import static com.mygdx.game.Screens.MainGameScreen.pl2;
@@ -179,15 +185,13 @@ public class PauseMenu implements Screen {
 
                 // Method for deserialization of object
                 playerInfo1 = (PlayerInfo) in.readObject();
-                playerInfo2 = (PlayerInfo) in.readObject();
+                playerInfo2 = (PlayerInfo) in2.readObject();
 
                 in.close();
                 file.close();
                 in2.close();
                 file2.close();
-
                 System.out.println("Object has been deserialized ");
-
             }
 
             catch(IOException ex)
@@ -203,8 +207,41 @@ public class PauseMenu implements Screen {
             mainClass.setScreen(new MainMenu(mainClass));
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.S)){
-
             //saving the state of the game
+            try
+            {
+                Random rn = new Random();
+                //int r = (int) System.nanoTime();
+                long r = System.currentTimeMillis();
+                //Saving of object in a file
+                FileOutputStream file = new FileOutputStream("player1"+r+".ser");
+                FileOutputStream file2 = new FileOutputStream("player2"+r+".ser");
+                Date currentDate = new Date(r);
+
+                String text = currentDate + " player1"+r+".ser" + " " + "player2"+r+".ser\n";
+                FileWriter fw=new FileWriter("savedGames.txt", true);
+                fw.write(text);
+                fw.close();
+
+                ObjectOutputStream out = new ObjectOutputStream(file);
+                ObjectOutputStream out2 = new ObjectOutputStream(file2);
+
+                // Method for serialization of object
+
+                out.writeObject(pl1);
+                out.close();
+                file.close();
+                out2.writeObject(pl2);
+                out2.close();
+                file2.close();
+                System.out.println("Game is saved.");
+            }
+            catch(IOException ex)
+            {
+                System.out.println("IOException is caught" + ex);
+            }
+            mainClass.setScreen(new PauseMenu(mainClass));
+
 
         }
     }

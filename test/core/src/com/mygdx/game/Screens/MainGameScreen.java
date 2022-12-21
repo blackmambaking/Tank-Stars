@@ -44,6 +44,19 @@ public class MainGameScreen implements Screen {
     private Texture img11;
 
     private Texture img12;
+    private Texture img13;
+    private Texture img14;
+    private Texture img15;
+    private Texture img16;
+    private Texture img17;
+    private Texture img18;
+    private Texture img19;
+    private Texture img20;
+    private Texture img21;
+    private Texture img22;
+    private Texture img23;
+    private Texture img24;
+    private Texture img25;
     private Player1 player1;
     private Player2 player2;
     public static PlayerInfo pl1;
@@ -63,6 +76,7 @@ public class MainGameScreen implements Screen {
     private ShapeRenderer shapeRenderer7;
     private ShapeRenderer shapeRenderer8;
     private ShapeRenderer shapeRenderer9;
+    private ShapeRenderer shapeRenderer10;
 
     private ArrayList <Float> trajectoryX_pl1;
     private ArrayList <Float> trajectoryY_pl1;
@@ -84,9 +98,26 @@ public class MainGameScreen implements Screen {
     private ShapeRenderer sr;
     private Sprite normal;
     private Sprite normal2;
+
+    public static int winner;
     private Vector2 laserPo;
+    private Sprite s1;
+    private Sprite s2;
+    private Sprite s3;
+    private Sprite s4;
+    private Sprite s5;
+    private Sprite s6;
+    private Sprite s7;
+    private Sprite s8;
+    private Sprite s9;
+    private Sprite s10;
+    private Sprite s11;
+    private Sprite s12;
+    private Sprite s13;
     public MainGameScreen(MainClass mainClass) {
         this.mainClass = mainClass;
+//        PauseMenu.playerInfo1 = null;
+//        PauseMenu.playerInfo2 = null;
         img = new Texture("bgm2.png");
         img2 = new Texture("tank2.png");
         img3 = new Texture("bomb.png");
@@ -101,7 +132,21 @@ public class MainGameScreen implements Screen {
         img10 = new Texture("pause.png");
         img11 = new Texture("fire.png");
         img12 = new Texture("tank3.png");
+        img13 = new Texture("1-removebg-preview.png");
+        img14 = new Texture("2-removebg-preview.png");
+        img15 = new Texture("3-removebg-preview.png");
+        img16 = new Texture("4-removebg-preview.png");
+        img17 = new Texture("5-removebg-preview.png");
+        img18 = new Texture("6-removebg-preview.png");
+        img19 = new Texture("7-removebg-preview.png");
+        img20 = new Texture("8-removebg-preview.png");
+        img21 = new Texture("9-removebg-preview.png");
+        img22 = new Texture("10-removebg-preview.png");
+        img23 = new Texture("11-removebg-preview.png");
+        img24 = new Texture("12-removebg-preview.png");
+        img25 = new Texture("13-removebg-preview.png");
 
+        //winner = 1;
 
         laserPo = new Vector2(1000, 1000);
         if(mainClass.getTank1() ==1){
@@ -144,6 +189,7 @@ public class MainGameScreen implements Screen {
         shapeRenderer7 = new ShapeRenderer();
         shapeRenderer8 = new ShapeRenderer();
         shapeRenderer9 = new ShapeRenderer();
+        shapeRenderer10 = new ShapeRenderer();
         position = new Vector2(-100,100);
         position2 = new Vector2(300,100);
         position3 = new Vector2(350,390);
@@ -161,6 +207,19 @@ public class MainGameScreen implements Screen {
             float y = (float) ((float) 50*(Math.abs(3*Math.sin(i *0.001) + 2*Math.sin(i * 0.01) + 2*Math.sin(i * 0.0016))))+80;
             terrain.add(y);
         }
+        s1 = new Sprite(img4);
+        s2 = new Sprite(img13);
+        s3 = new Sprite(img14);
+        s4 = new Sprite(img15);
+        s5 = new Sprite(img16);
+        s6 = new Sprite(img17);
+        s7 = new Sprite(img18);
+        s8 = new Sprite(img19);
+        s9 = new Sprite(img20);
+        s10 = new Sprite(img21);
+        s11 = new Sprite(img22);
+        s12 = new Sprite(img23);
+        s13 = new Sprite(img24);
 
     }
 
@@ -198,32 +257,45 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void show() {
-
-
         pause.setPosition(position3);
         pause.getSprite().setScale(0.1F);
-        pl1 = new PlayerInfo("Player1", mainClass.getTank1(), 100, player1.getSprite().getX(), player1.getSprite().getX(), player1.getAngle(), player1.getAttackSpeed());
-        pl2 = new PlayerInfo("Player2", mainClass.getTank2(), 100, player2.getSprite().getX(), player2.getSprite().getX(), player2.getAngle(), player2.getAttackSpeed());
+        pl1 = new PlayerInfo("Player1", mainClass.getTank1(), 500, player1.getSprite().getX(), player1.getSprite().getX(), player1.getAngle(), player1.getAttackSpeed());
+        pl2 = new PlayerInfo("Player2", mainClass.getTank2(), 500, player2.getSprite().getX(), player2.getSprite().getX(), player2.getAngle(), player2.getAttackSpeed());
+        if(PauseMenu.playerInfo1 != null){
+            pl1 = PauseMenu.playerInfo1;
+            Vector2 a = new Vector2(pl1.getX(), pl1.getY());
+            player1.setPosition(a);
+            player1.setAttackSpeed(pl1.getAttackSpeed());
+            player1.setAngle(pl1.getAttackAngle());
+            player1.setHealth(pl1.getHealth());
+        }
+        if(PauseMenu.playerInfo2 != null ){
+            pl2 = PauseMenu.playerInfo2;
+            Vector2 b = new Vector2(pl2.getX(), pl2.getY());
+            player2.setPosition(b);
+            player2.setAttackSpeed(pl2.getAttackSpeed());
+            player2.setAngle(pl2.getAttackAngle());
+            player2.setHealth(pl2.getHealth());
 
-
+        }
     }
 
     @Override
     public void render(float delta) {
 
         try{
-            if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
-                getPlayerInfo(player1);
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
-                getPlayerInfo(player2);
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.C)){
-                getPlayerHealth(health, player1);
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.V)){
-                getPlayerHealth(health2, player2);
-            }
+//            if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
+//                getPlayerInfo(player1);
+//            }
+//            if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
+//                getPlayerInfo(player2);
+//            }
+//            if(Gdx.input.isKeyJustPressed(Input.Keys.C)){
+//                getPlayerHealth(health, player1);
+//            }
+//            if(Gdx.input.isKeyJustPressed(Input.Keys.V)){
+//                getPlayerHealth(health2, player2);
+//            }
 
             ScreenUtils.clear(0, 0, 0, 1);
             batch.begin();
@@ -234,8 +306,8 @@ public class MainGameScreen implements Screen {
             pl1.setY(player1.getSprite().getY());
             pl2.setX(player2.getSprite().getX());
             pl2.setY(player2.getSprite().getY());
-            health.draw(batch);
-            health2.draw(batch);
+            //health.draw(batch);
+            //health2.draw(batch);
             pause.draw(batch);
             batch.end();
             //making the terrain
@@ -259,6 +331,18 @@ public class MainGameScreen implements Screen {
             }
 
             shapeRenderer.end();
+
+            //making the health bars
+            shapeRenderer10.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer10.setColor(Color.LIGHT_GRAY);
+            shapeRenderer10.box(70, Gdx.graphics.getHeight() - 40, 0, 500, 20, 0);
+            shapeRenderer10.box(Gdx.graphics.getWidth()/2 +30, Gdx.graphics.getHeight() - 40, 0, 500, 20, 0);
+
+            shapeRenderer10.setColor(Color.RED);
+            shapeRenderer10.box(70F, Gdx.graphics.getHeight() - 40, (float) 0, pl1.getHealth(), 20, 0);
+            shapeRenderer10.box(Gdx.graphics.getWidth()/2 +30, Gdx.graphics.getHeight() - 40, (float) 0, pl2.getHealth(), 20, 0);
+            shapeRenderer10.end();
+
             batch.begin();
             player1.draw(batch);
             player2.draw(batch);
@@ -276,13 +360,13 @@ public class MainGameScreen implements Screen {
 
             //making velocity and angle meter for player 1,2
             shapeRenderer4.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer4.setColor(Color.MAROON);
+            shapeRenderer4.setColor(Color.LIGHT_GRAY);
             shapeRenderer4.box(10, 10, 0, 20, 400, 0);
             shapeRenderer4.box(Gdx.graphics.getWidth() -30, 10, 0, 20, 400, 0);
             shapeRenderer4.end();
 
             shapeRenderer7.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer7.setColor(Color.RED);
+            shapeRenderer7.setColor(Color.MAROON);
             shapeRenderer7.box(10F, 10F, (float) 0, 20F, (float) player1.getAttackSpeed(), 0);
             shapeRenderer7.box(Gdx.graphics.getWidth() -30, 10F, (float) 0, 20F, (float) player2.getAttackSpeed(), 0);
             shapeRenderer7.end();
@@ -311,7 +395,7 @@ public class MainGameScreen implements Screen {
 
             shapeRenderer8.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer8.setColor(Color.WHITE);
-            for(int i = 1; i< 10; i++){
+            for(int i = 1; i< 6; i++){
                 shapeRenderer8.circle(trajectoryX_pl1.get(i), trajectoryY_pl1.get(i), 4);
             }
             shapeRenderer8.end();
@@ -327,7 +411,7 @@ public class MainGameScreen implements Screen {
             }
             shapeRenderer9.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer9.setColor(Color.WHITE);
-            for(int i = 1; i< 10; i++){
+            for(int i = 1; i< 6; i++){
                 shapeRenderer9.circle(trajectoryX_pl2.get(i), trajectoryY_pl2.get(i), 4);
             }
             shapeRenderer9.end();
@@ -336,33 +420,39 @@ public class MainGameScreen implements Screen {
             //player1.setLaserSprite(normal);
             //player2.setLaserSprite(normal);
 
+            //making fuel ration per turn
+            shapeRenderer3.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer3.setColor(Color.LIGHT_GRAY);
+            shapeRenderer3.box(70, 10, 0, 20, 100, 0);
+            shapeRenderer3.box(Gdx.graphics.getWidth() -90, 10, 0, 20, 100, 0);
+            shapeRenderer3.end();
+
+            shapeRenderer2.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer2.setColor(Color.GOLD);
+            shapeRenderer2.box(70F, 10F, (float) 0, 20F, (float) player1.getFuel(), 0);
+            shapeRenderer2.box(Gdx.graphics.getWidth() -90, 10F, (float) 0, 20F, (float) player2.getFuel(), 0);
+            shapeRenderer2.end();
+
+
             //making blast and damage on attack
 
             if (player1.getLaserSprite().getBoundingRectangle().overlaps(player2.getSprite().getBoundingRectangle())) {
-
-                Sprite blast = new Sprite(img11);
-
-                //player1.setLaserSprite(blast);
-
                 player1.setPositionLaser(laserPo);
-                player2.setSprite(blast);
-                pl2.setHealth(pl2.getHealth()-10);
-                //sleep(1000);
-                //player2.setSprite(normal2);
-                //sleep(1000);
-                //player1.setLaserSprite(normal);
+                System.out.println("Blaaaast....");
+
+                player2.setHealth((int) (player2.getHealth() - 0.01));
+                pl2.setHealth((int) (pl2.getHealth()-0.01));
+                System.out.println(pl2.getHealth());
+
             }
             if (player2.getLaserSprite().getBoundingRectangle().overlaps(player1.getSprite().getBoundingRectangle())) {
-                Sprite blast = new Sprite();
-
+                System.out.println("Blaaaast....");
                // player2.setLaserSprite(blast);
                 player2.setPositionLaser(laserPo);
-                player1.setSprite(blast);
-                pl1.setHealth(pl1.getHealth()-10);
-                //sleep(1000);
-                //player1.setSprite(normal);
-                //sleep(1000);
-                //player2.setLaserSprite(normal);
+
+                pl1.setHealth((int) (pl1.getHealth()-0.01));
+                player1.setHealth((int) (player1.getHealth() - 0.01));
+                System.out.println(pl1.getHealth());
 
             }
             //updating player info
@@ -370,6 +460,21 @@ public class MainGameScreen implements Screen {
             pl1.setY(player1.getSprite().getY());
             pl2.setX(player2.getSprite().getX());
             pl2.setY(player2.getSprite().getY());
+            pl1.setHealth(player1.getHealth());
+            pl2.setHealth(player2.getHealth());
+            pl1.setAttackSpeed(player1.getAttackSpeed());
+            pl2.setAttackSpeed(player2.getAttackSpeed());
+            pl1.setAttackAngle(player1.getAngle());
+            pl2.setAttackAngle(player2.getAngle());
+
+            if(pl1.getHealth()<=0 || pl2.getHealth()<=0){
+                if(pl1.getHealth()<=0){
+                    winner = 2;
+                } if(pl2.getHealth()<=0){
+                    winner = 1;
+                }
+                mainClass.setScreen(new ResultScreen(mainClass));
+            }
 
             //taking in game input for pausing the game
             if(Gdx.input.isKeyJustPressed(Input.Keys.P)){

@@ -27,6 +27,7 @@ public class Player1 extends Player {
     private int health;
     private float time;
     private int fire;
+    private int fuel;
 
     private ArrayList<Float> terrain;
 
@@ -98,16 +99,25 @@ public class Player1 extends Player {
         sprite = new Sprite(img);
         laserSprite = new Sprite(laserImg);
         position = new Vector2(-200,terrain.get((int) -200+350) -140);
-        positionLaser = new Vector2(Gdx.graphics.getWidth()/2,1000);
+        positionLaser = new Vector2(Gdx.graphics.getWidth()/2,10000);
         sprite.setScale((float) 0.2);
         sprite.setRotation(0);
         laserSprite.setScale((float) 0.1);
         this.setName("Player1");
-        this.health = 100;
+        this.health = 500;
         this.attackSpeed = 70;
         this.angle = 20;
         this.time = 0;
         this.fire = 0;
+        this.fuel = 100;
+    }
+
+    public int getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(int fuel) {
+        this.fuel = fuel;
     }
 
     public double getAngle() {
@@ -129,23 +139,32 @@ public class Player1 extends Player {
     @Override
     public void update(float deltaTime){
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            position.x = position.x - deltaTime*speed;
-            position.y = terrain.get((int) (position.x)+350) -140;
-            Float delY = terrain.get((int) (position.x)+351) - terrain.get((int) (position.x)+350);
-            Float delX = 4F;
-            float angle2 = (float) Math.tanh((float)delY/delX);
+            if(this.fuel>0){
+                position.x = position.x - deltaTime*speed;
+                position.y = terrain.get((int) (position.x)+350) -140;
+                Float delY = terrain.get((int) (position.x)+351) - terrain.get((int) (position.x)+350);
+                Float delX = 4F;
+                float angle2 = (float) Math.tanh((float)delY/delX);
+                this.fuel = (int) (this.fuel - deltaTime*speed*0.2);
+                //System.out.println(this.fuel);
+                sprite.rotate(angle2);
+            }
 
-            sprite.rotate(angle2);
 
 
         }if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            position.x = position.x + deltaTime*speed;
-            position.y = terrain.get((int) (position.x)+350) -140;
-            Float delY = terrain.get((int) (position.x)+351) - terrain.get((int) (position.x)+350);
-            Float delX = 4F;
-            float angle2 = (float) Math.tanh((float)delY/delX);
+            if(this.fuel>0){
+                position.x = position.x + deltaTime*speed;
+                position.y = terrain.get((int) (position.x)+350) -140;
+                Float delY = terrain.get((int) (position.x)+351) - terrain.get((int) (position.x)+350);
+                Float delX = 4F;
+                float angle2 = (float) Math.tanh((float)delY/delX);
+                this.fuel = (int) (this.fuel - deltaTime*speed*0.2);
+               // System.out.println(this.fuel);
+                sprite.rotate(-angle2);
+            }
 
-            sprite.rotate(-angle2);
+
 
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
@@ -186,6 +205,7 @@ public class Player1 extends Player {
             this.fire = 1;
             positionLaser.y = position.y - 60 ;
             positionLaser.x = position.x +125;
+            this.fuel = 100;
         }
 
         float x = position.x  + 125+ (float) ((this.attackSpeed)* Math.cos(this.angle) * this.time) - 30;

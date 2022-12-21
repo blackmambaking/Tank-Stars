@@ -89,6 +89,8 @@ public class Player1 extends Player {
 
     private float LaserSpeed = 300;
     private ShapeRenderer shapeRenderer;
+    private Texture bomb2;
+    private Texture bomb1;
     public Player1(Texture img, Texture laserImg){
 
         terrain = new ArrayList<>();
@@ -103,6 +105,8 @@ public class Player1 extends Player {
         sprite.setScale((float) 0.2);
         sprite.setRotation(0);
         laserSprite.setScale((float) 0.1);
+        bomb2 = new Texture("bmb.png");
+        bomb1 = new Texture("bomb.png");
         this.setName("Player1");
         this.health = 500;
         this.attackSpeed = 70;
@@ -201,6 +205,17 @@ public class Player1 extends Player {
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
             this.time = 0.5F;
+            this.laserSprite.setTexture(bomb1);
+            this.laserSprite.setTexture(bomb2);
+            this.laserSprite.setRotation(0);
+            this.fire = 1;
+            positionLaser.y = position.y - 60 ;
+            positionLaser.x = position.x +125;
+            this.fuel = 100;
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.CONTROL_RIGHT)){
+            this.time = 0.5F;
+            this.laserSprite.setTexture(bomb2);
             this.laserSprite.setRotation(0);
             this.fire = 1;
             positionLaser.y = position.y - 60 ;

@@ -22,6 +22,8 @@ public class Player2 extends Player {
     private int health;
     private float time;
     private int fire;
+    private Texture bomb2;
+    private Texture bomb1;
 
     private ArrayList<Float> terrain;
 
@@ -99,6 +101,8 @@ public class Player2 extends Player {
         sprite.flip(true, false);
         sprite.setRotation(0);
         laserSprite.setScale((float) 0.1);
+        bomb2 = new Texture("bmb.png");
+        bomb1 = new Texture("bomb.png");
         this.setName("Player1");
         this.health = 500;
         this.attackSpeed = 70;
@@ -198,6 +202,16 @@ public class Player2 extends Player {
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)){
             this.time = 0.5F;
+            this.laserSprite.setTexture(bomb1);
+            this.laserSprite.setRotation(0);
+            this.fire = 1;
+            positionLaser.y = position.y - 60 ;
+            positionLaser.x = position.x +125;
+            this.fuel = 100;
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.CONTROL_LEFT)){
+            this.time = 0.5F;
+            this.laserSprite.setTexture(bomb2);
             this.laserSprite.setRotation(0);
             this.fire = 1;
             positionLaser.y = position.y - 60 ;
